@@ -28,18 +28,18 @@ def scrape_info():
 def marsnews(browser):
     # URL of page to be scraped
     url1 = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
-    time.sleep(1)
+    time.sleep(5)
     
     browser.visit(url1)
     html1=browser.html
     soup1 = bs(html1, 'html.parser')
     # Find the first title
-    time.sleep(1)
+    time.sleep(5)
     news_title = ((soup1.find('ul', class_='item_list')).find('li', class_='slide')).find('div', class_='content_title').text
 
     
     # Find the first paragrapgh
-    time.sleep(1)
+    time.sleep(5)
     news_paragraph = ((soup1.find('ul', class_='item_list')).find('li', class_='slide')).find('div', class_='article_teaser_body').text
 
     
@@ -51,6 +51,7 @@ def jpl(browser):
     base_url = 'https://www.jpl.nasa.gov'
     # Retrieve page with the requests module
     browser.visit(url2)
+    time.sleep(5)
     browser.click_link_by_partial_text('FULL IMAGE')
     browser.click_link_by_partial_text('more info')
     html2 = browser.html
@@ -67,7 +68,7 @@ def mars_weather(browser):
     # Twitter and scrape the latest tweet
     url5 = 'https://twitter.com/MarsWxReport/status/1291597742586945538'
     browser.visit(url5)
-    time.sleep(1)
+    time.sleep(5)
     html5 = browser.html
     soup5 = bs(html5, 'html.parser')
     tweets = soup5.find('title').text
@@ -79,6 +80,7 @@ def mars_facts(browser):
     url3 = 'https://space-facts.com/mars/'
     time.sleep(1)
     browser.visit(url3)
+    time.sleep(3)
     # html3=browser.html
     # soup3 = bs(html3, 'html.parser')
     tables = pd.read_html(url3)
@@ -91,7 +93,7 @@ def mars_facts(browser):
 def mars_hem(browser):
     # URL of page to be scraped
     url4 =  'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
-    time.sleep(1)
+    time.sleep(5)
 
     hemisphere_image_urls = []
 
@@ -100,7 +102,9 @@ def mars_hem(browser):
     titles = list(browser.find_by_tag('h3'))
 
     for i in range(len(titles)):
+        
         browser.find_by_tag('h3')[i].click()
+        time.sleep(5)
         html4=browser.html
         soup4 = bs(html4, 'html.parser')
         dictionary = {
